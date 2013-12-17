@@ -26,38 +26,518 @@ URL: https://code.google.com/p/io-2012-slides
 
 <slides class="layout-widescreen">
 
-  <slide class="logoslide nobackground">
+<!--   <slide class="logoslide nobackground">
     <article class="flexbox vcenter">
-      <span><img src="images/google_developers_logo.png"></span>
+      <span><img src="images/angularjs.png"></span>
+    </article>
+  </slide>
+ -->
+  <slide class="title-slide segue nobackground fill" style="background-image: url(images/promises.jpg)">
+    <!-- <aside class="gdbar"><img src="images/angularjs.png"></aside> -->
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 class="yellow" data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p class="yellow2" data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <!-- <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside> -->
+    <hgroup>
+      <h2 class="yellow">Why Promises ?</h2>
+      <h3 class="yellow">Let's step back to the basics</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup class="centered">
+      <h3>Single thread synchronous model aka. blocking</h3>
+    </hgroup>
+    <br><br>
+    <article style="float: left">
+    <br>
+    <br>
+    <br>
+    <br>
+      <ul>
+        <li>Suppose a program consisting of 3 distinct tasks</li>
+        <li>Tasks are performed one at a time</li>
+        <li>Always in a defined order</li>
+        <li>Simplest style of programming</li>
+      </ul>
+    </article>
+    <article class="centered">
+      <img src="images/sync.png" class="auto-fade-in" alt="Description" title="Description">
+      <footer class="source">source: <a href="http://krondo.com/?p=1209">krondo.com</a></footer>
     </article>
   </slide>
 
-  <slide class="title-slide segue nobackground">
-    <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside>
-    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
-    <hgroup class="auto-fadein">
-      <h1 data-config-title><!-- populated from slide_config.json --></h1>
-      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
-      <p data-config-presenter><!-- populated from slide_config.json --></p>
+
+  <slide>
+    <hgroup class="centered">
+      <h3>Multi threaded model</h3>
+    </hgroup>
+    <br><br>
+    <article style="float: left; width: 60%">
+    <br>
+    <br>
+    <br>
+    <br>
+      <ul>
+        <li>Tasks run in separate threads</li>
+        <li>Threads are handled by the OS</li>
+        <li>Threads can run concurrently</li>
+        <li>They often <b>end up just waiting</b></li>
+        <li>Or interleaved together in single CPU</li>
+        <li>Tasks might get suspended arbitrarily by OS</li>
+        <li>Thread communication and synchronisation is a diffcult topic</li>
+      </ul>
+    </article>
+    <article class="centered">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+      <img src="images/threaded.png" class="auto-fade-in" alt="Description" title="Description">
+      <footer class="source">source: <a href="http://krondo.com/?p=1209">krondo.com</a></footer>
+    </article>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/ihavenoidea.jpg)">
+<!--     <hgroup>
+      <h2 class="white">Full Image (with Optional Header)</h2>
+    </hgroup>
+ -->    <!-- <footer class="source white">www.flickr.com/photos/25797459@N06/5438799763/</footer> -->
+  </slide>
+
+  <slide>
+    <hgroup class="centered">
+      <h3>Single thread asynchronous model = <b>Javascript</b></h3>
+    </hgroup>
+    <br><br>
+    <article style="float: left">
+    <br>
+    <br>
+    <br>
+    <br>
+      <ul>
+        <li>Tasks interleaved inside the same Thread</li>
+        <li>Goodness of synchronous + multithreaded </li>
+        <li>Programmer in control, not the OS</li>
+        <li>Tasks are not suspended arbitrarily</li>
+      </ul>
+    </article>
+    <article class="centered">
+      <img src="images/async.png" class="auto-fade-in" alt="Description" title="Description">
+      <footer class="source">source: <a href="http://krondo.com/?p=1209">krondo.com</a></footer>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup class="centered">
+      <h3>Single thread asynchronous model = <b>Javascript</b></h3>
+    </hgroup>
+    <br><br>
+    <article style="float: left">
+    <br>
+       <h4>The <b class="blue">event loop</b> handles task scheduling</h4>
+       <br><br>
+      <pre class="prettyprint" data-lang="javascript" >
+// Event loop pseudo code
+for(;;) { 
+  if (endOfProgram)
+    quit();
+  <b>if(eventToHandle) { // task waiting, task finished ...
+    handleEvent(eventToHandle); // Callback </b>
+  }
+}
+</pre>
+    </article>
+    <article class="centered">
+      <img src="images/eventloop.png" class="auto-fade-in" alt="Description" title="Description" style="height:350px">
+      <footer class="source">source: <a href="http://krondo.com/?p=1209">krondo.com</a></footer>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup class="centered">
+      <h3>Single thread asynchronous model = <b>Javascript</b></h3>
+    </hgroup>
+    <br><br>
+    <article style="float: left">
+    <br>
+      <h3 class="red">Therefore</h3>
+      <br><br>
+      <ul>
+        <li>Each task must be <b>non blocking</b></li>
+        <li>Otherwise you get freezes and lags</li>
+      </ul>
+    </article>
+    <article class="centered">
+      <img src="images/async.png" class="auto-fade-in" alt="Description" title="Description">
+      <footer class="source">source: <a href="http://krondo.com/?p=1209">krondo.com</a></footer>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Stupid Asynchronous API: <b>Callbacks</b></h2>
+      <h3>Asynchronous = Non Blocking</h3>
+    </hgroup>
+    <article class="">
+        <h3 class="centered"> <b>Callbacks</b> are a way to make tasks non blocking</h3>
+        <br>
+        <pre class="prettyprint" data-lang="javascript" >
+        task1(function task2(task1Result) {
+          // do something with task 1 result 
+        })
+
+        var task1 = function(callback) {
+          result = longRunningTask(); // Blocking call
+          callback(result); // Calling a passed callback
+        }
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Stupid Asynchronous API: <b>Callbacks</b></h2>
+      <h3>Asynchronous = Non Blocking</h3>
+    </hgroup>
+    <article class="">
+        <h3 class="centered"> <b>Callbacks</b> are messy </h3>
+        <br>
+        <pre class="prettyprint" data-lang="javascript" >
+        $('#button').click(function () {
+          askForTwitterHandle(function(twitterHandle) {
+            twitterHandle.getTweets(function (tweets) {
+              processTweets(function (processedTweets) {
+                ui.show(processedTweets);
+              });
+            });
+          });
+        });
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="smaller">
+        <h3 class="centered"> <b>Callbacks</b> error handling is worse, no exception propagation </h3>
+        <pre class="prettyprint" data-lang="javascript" >
+        $('#button').click(function () {
+          askForTwitterHandle(function(twitterHandle) {
+              twitterHandle.getTweets(function (tweets) {
+                ...
+              });
+          }, function onFailure(error) {
+            handleError(error);
+          });
+        });
+      </pre>
+      <h3 class="centered">In the synchronous model we have <b>try/catch</b></h3>
+        <pre class="prettyprint" data-lang="javascript" >
+        try {
+          handle = askForTwitterHandle();
+          tweets = handle.getTweets();
+          ...
+        } catch (errorMessage) {
+          console.log('I messed up');
+        }
+      </pre>
+    </article>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/callbacks-hack.jpg); background-position: center; background-size: auto 100%;">
+<!--     <hgroup>
+      <h2 class="white">Full Image (with Optional Header)</h2>
+    </hgroup>
+ -->    <!-- <footer class="source white">www.flickr.com/photos/25797459@N06/5438799763/</footer> -->
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Promises are the right abstraction</h2>
+    </hgroup>
+    <article>
+      </pre>
+      <h4 class="centered">Instead of calling a passed callback, we return a promise</h4>
+      <br><br>
+        <pre class="prettyprint" data-lang="javascript" >
+        ajax('template.html', function(err, template) {
+            if (err)
+              handleError();
+
+            render(template);
+        })
+
+        // Becomes
+
+        <b>var promiseForTemplate = $http.get('template.html');
+        promiseForTemplate.then(render, handleError)</b>
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Promises guarantees</h2>
+    </hgroup>
+    <article>
+      </pre>
+        <pre class="prettyprint" data-lang="javascript" >
+          promiseForTemplate.then(onFulfilled, onFailed);
+      </pre>
+      <br><br>
+      <ul>
+        <li>Only one of <b>onFulfilled</b> or <b>onFailed</b> will be called</li>
+        <li><b>onFulfilled</b> will be called with a single value (return value)</li>
+        <li><b>onFailed</b> will be called with a single rejection reason (thrown exception) </li>
+        <li>If the promise if already settled, the handlers are guaranteed to be called anyway</li>
+        <li>The handlers will always be called asynchronousy</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Promises can be chained</h2>
+    </hgroup>
+    <article>
+      </pre>
+        <pre class="prettyprint" data-lang="javascript" >
+          //
+          var transformedPromise = promiseForTemplate.then(onFulfilled, onFailed);
+      </pre>
+      <br><br>
+      <ul>
+        <li>If <b>onFulfilled</b> returns a value</li>
+        <ul>
+          <li><b>transformedPromise</b> is <u>resolved</u> with that value</li>
+        </ul>
+        <li>If <b>onFulfilled</b> returns a promise</li>
+        <ul>
+          <li><b>transformedPromise</b> will adapt it's state</li>
+        </ul>
+        <li>If <b>onFailed</b> throws an exception</li>
+        <ul>
+          <li><b>transformedPromise</b> will be rejected with that exception</li>
+        </ul>
+      </ul>
+    </article>
+  </slide>
+
+
+  <slide>
+    <article class="">
+    <hgroup>
+      <h2>Example</h2>
+    </hgroup>
+    <br><br>
+        <h3>Sync</h3>
+        <pre class="prettyprint" data-lang="javascript" >
+        var user = getUser();  // blocking, ie, prompt for password
+        var username = user.name;
+        </pre>
+        <br><br>
+        <h3>Async with Promise</h3>
+        <pre class="prettyprint" data-lang="javascript" >
+          var userNamePromise = getUser().then(function (user){
+            return user.name;
+          })</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="">
+    <hgroup>
+      <h2>Example: throwing an exception</h2>
+    </hgroup>
+    <br><br>
+        <h3>Sync</h3>
+        <pre class="prettyprint" data-lang="javascript" >
+        var user = getUser();  // blocking, ie, prompt for password
+        if (user === null)
+          throw new Error('null user');
+        </pre>
+        <br><br>
+        <h3>Async with Promise</h3>
+        <pre class="prettyprint" data-lang="javascript" >
+          var userPromise = getUser().then(function (user){
+            if (user === null)
+              throw new Error('null user');
+            return user;
+          })
+        </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="">
+    <hgroup>
+      <h2>Example: handling an exception</h2>
+    </hgroup>
+    <br><br>
+        <h3>Sync</h3>
+        <pre class="prettyprint" data-lang="javascript" >
+        try {
+          updateUser(data);
+        } <b>catch (exp) {
+          console.log('There was an error', exp);
+        }</b></pre>
+        <br>
+        <h3>Async with Promise: exception propagation</h3>
+        <pre class="prettyprint" data-lang="javascript" >
+
+          var updateUserPromise = updateUser(data).then(undefined, <b>function(exp) {
+            console.log('There was an error', exp);
+          }</b>)
+        </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="">
+    <hgroup>
+      <h2>Example: rethrowing an exception</h2>
+    </hgroup>
+    <br><br>
+        <h3>Sync</h3>
+        <pre class="prettyprint" data-lang="javascript" >
+        try {
+          updateUser(data);
+        } <b>catch (exp) {
+          throw new Error('UpdateUserError: ' + exp.message)
+        }</b></pre>
+        <br>
+        <h3>Async with Promise: exception propagation</h3>
+        <pre class="prettyprint" data-lang="javascript" >
+
+        var updateUserPromise = updateUser(data).then(undefined,  <b>function(exp) {
+          throw new Error('UpdateUserError: ' + exp.message)
+        }</b>)
+        </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="">
+    <hgroup>
+      <h2>Example: exception propagation</h2>
+    </hgroup>
+        <h3>Callbacks</h3>
+        <pre class="prettyprint" data-lang="javascript" >
+          getUser('spike', function(err, user){
+            <b>if(err) {
+              ui.error(err);
+            }</b> else {
+              getBestFriend(user, function(err, friend){
+                <b>if (err) {
+                  ui.error(err);
+                }</b> else {
+                  ui.showBestFriend(friend, function(err, friend){
+                    <b>if (err) {
+                      ui.error(err);
+                    }</b> 
+                  })
+                }
+              })
+            }
+          })</pre>
+        <br>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="">
+    <hgroup>
+      <h2>Example: exception propagation</h2>
+    </hgroup>
+    <br>
+    <br>
+    <br>
+        <h3>Promises</h3>
+        <pre class="prettyprint" data-lang="javascript" >
+          getUser()
+          .then(getBestFriend)
+          .then(ui.showBestFriend)
+          <b>.then(undefined, ui.error)</b>
+        </pre>
+        <br>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Promises in <span class="red3">Angular</span></h2>
+    </hgroup>
+    <article class="">
+    <ul>
+      <li>Provided by <b class="blue">$q</b> service</li>
+      <li>Inspired by the the promise/deferred <code><a href="https://github.com/kriskowal/q">Q library</a></code></li>
+      <li>Is a lightweight implementation of Promises (Q is much more complete)</li>
+      <li>Promises are used everywhere Angular needs async</li>
+      <ul>
+        <li>$http</li>
+        <li>$resource</li>
+        <li>$routeProvider</li>
+        <li>Controller properties</li>
+        <li>Response Interceptors</li>
+        <li>...</li>
+      </ul>
+    <li>Optimized for the Angular <b class="blue2">run loop</b></li>
+    </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Angular Run Loop</h2>
+      <br><br>
+      <article class="centered">
+        <img src="images/runloop.png" alt="" style="height: 455px">
+      </article>
     </hgroup>
   </slide>
 
   <slide>
     <hgroup>
-      <h2>Slide with Bullets</h2>
+      <h2>How to use Promises in Angular</h2>
     </hgroup>
     <article>
-      <ul>
-        <li>Titles are formatted as Open Sans with bold applied and font size is set at 45</li>
-        <li>Title capitalization is title case
-          <ul>
-            <li>Subtitle capitalization is title case</li>
-          </ul>
-        </li>
-        <li>Subtitle capitalization is title case</li>
-        <li>Titles and subtitles should never have a period at the end</li>
-      </ul>
+        <pre class="prettyprint" data-lang="javascript" >
+
+          .controller('testCtrl', function($scope, $q) { // inject the service
+
+            var promiseOfTask = function () {
+
+              var deferredTask = $q.defer(); // create a deferred object
+
+              var result = blockingTask(); // long running task
+              deferredTask.<b>resolve(result)</b> // resolve the future promise with the result
+
+              return deferredTask.promise // return the promise
+            }
+             
+            //using the promise 
+            <b>promiseOfTask().then(function(result){
+              $scope.updateSomeModel(result);
+            })</b>
+          })
+        </pre>
     </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/angularjs.png"></aside>
+    <hgroup>
+      <h2 class="yellow">Demonstration</h2>
+      <h3 class="yellow">Handling failovers for api calls</h3>
+    </hgroup>
   </slide>
 
   <slide>
@@ -388,7 +868,7 @@ function helloWorld(world) {
 
   <slide class="logoslide dark nobackground">
     <article class="flexbox vcenter">
-      <span><img src="images/google_developers_logo_white.png"></span>
+      <span><img src="images/angularjs_white.png"></span>
     </article>
   </slide>
 
