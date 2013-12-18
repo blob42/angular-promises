@@ -47,11 +47,11 @@ angular.module('angularPromisesApp')
   					tryRequest.resolve('timeout')
   					doRequest();
   				}
-  			// }, requestTimeout);
+  			}, requestTimeout);
 
   			// Using exponential max timeout latency
-  			}, Math.exp(requestTimeout/100));
-  			requestTimeout += 50;
+  			// }, Math.exp(requestTimeout/100));
+  			// requestTimeout += 50;
 
 
   			/*
@@ -69,7 +69,7 @@ angular.module('angularPromisesApp')
   				timeout: tryRequest.promise // A promise that will abort the request if resolved
   			}).success(function(result){
   				if (timedOut)
-  					return;
+  					return; // Because promises may be executed later in the digest cycle, abort duplicate request
   				else {
   					console.log('success')
   					tryRequest.reject('request success')
