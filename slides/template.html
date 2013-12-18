@@ -403,30 +403,6 @@ for(;;) {
   <slide>
     <article class="">
     <hgroup>
-      <h2>Example: rethrowing an exception</h2>
-    </hgroup>
-    <br><br>
-        <h3>Sync</h3>
-        <pre class="prettyprint" data-lang="javascript" >
-        try {
-          updateUser(data);
-        } <b>catch (exp) {
-          throw new Error('UpdateUserError: ' + exp.message)
-        }</b></pre>
-        <br>
-        <h3>Async with Promise: exception propagation</h3>
-        <pre class="prettyprint" data-lang="javascript" >
-
-        var updateUserPromise = updateUser(data).then(undefined,  <b>function(exp) {
-          throw new Error('UpdateUserError: ' + exp.message)
-        }</b>)
-        </pre>
-    </article>
-  </slide>
-
-  <slide>
-    <article class="">
-    <hgroup>
       <h2>Example: exception propagation</h2>
     </hgroup>
         <h3>Callbacks</h3>
@@ -479,7 +455,6 @@ for(;;) {
     <ul>
       <li>Provided by <b class="blue">$q</b> service</li>
       <li>Inspired by the the promise/deferred <code><a href="https://github.com/kriskowal/q">Q library</a></code></li>
-      <li>Is a lightweight implementation of Promises (Q is much more complete)</li>
       <li>Promises are used everywhere Angular needs async</li>
       <ul>
         <li>$http</li>
@@ -489,6 +464,7 @@ for(;;) {
         <li>Response Interceptors</li>
         <li>...</li>
       </ul>
+      <li>Is a lightweight implementation of Promises (Q is much more complete)</li>
     <li>Optimized for the Angular <b class="blue2">run loop</b></li>
     </ul>
     </article>
@@ -540,337 +516,30 @@ for(;;) {
     </hgroup>
   </slide>
 
-  <slide>
+  <slide class="dark nobackground">
+    <!-- <aside class="gdbar"><img src="images/angularjs.png"></aside> -->
     <hgroup>
-      <h2>Slide with Bullets that Build</h2>
-      <h3>Subtitle Placeholder</h3>
+      <h2 class="yellow2">Resources: </h2>
     </hgroup>
     <article>
-      <p>A list where items build:</p>
-      <ul class="build">
-        <li>Pressing 'h' highlights code snippets</li>
-        <li>Pressing 'p' toggles speaker notes (if they're on the current slide)</li>
-        <li>Pressing 'f' toggles fullscreen viewing</li>
-        <li>Pressing 'w' toggles widescreen</li>
-        <li>Pressing 'o' toggles overview mode</li>
-        <li>Pressing 'ESC' toggles off these goodies</li>
-      </ul>
-      <p>Another list, but items fade as they build:</p>
-      <ul class="build fade">
-        <li>Hover over me!</li>
-        <li>Hover over me!</li>
-        <li>Hover over me!</li>
-      </ul>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Slide with (Smaller Font)</h2>
-    </hgroup>
-    <article class="smaller">
       <ul>
-        <li>All <a href="http://google.com">links</a> open in new tabs.</li>
-        <li>To change that this, add <code>target="_self"</code> to the link.</li>
+        <li class="white">Learn more about promises: <code><a href="http://wiki.commonjs.org/wiki/Promises/A">commonJS Promises/A</a></code></li>
+        <li class="white">Best tutorial on deferred programming: <code><a href="http://krondo.com/?p=1209">Python Twisted & Deferreds</a></code></li>
+        <li class="white">Async with coroutines: <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators?redirectlocale=en-US&redirectslug=JavaScript%2FGuide%2FIterators_and_Generators">Generators in Javascript</a></code></li>
       </ul>
+      <br>
+      <br>
+      <br>
+        <span class="white">Twitter: </span><span class="yellow">@sp4ke</span>
+        <br><br>
+        <span class="white">Github: </span><span class="yellow">sp4ke</span>
+        <br><br>
+        <span class="white">Demo code: </span><span class="yellow">github.com/sp4ke/angular-promises</span>
+        <br><br>
+        <span class="white">Send your love in Bitcoins: </span><span class="yellow">1PPaGXh8wihVPBzyobLq557vHCfsjJdBQk</span>
     </article>
   </slide>
 
-  <slide hidden>
-    Hidden slides are left out of the presentation.
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Code Slide (with Subtitle Placeholder)</h2>
-      <h3>Subtitle Placeholder</h3>
-    </hgroup>
-    <article>
-      <p>Press 'h' to highlight important sections of code (wrapped in <code>&lt;b&gt;</code>).</p>
-      <pre class="prettyprint" data-lang="javascript">
-&lt;script type='text/javascript'&gt;
-  // Say hello world until the user starts questioning
-  // the meaningfulness of their existence.
-  function helloWorld(world) {
-    <b>for (var i = 42; --i &gt;= 0;) {
-      alert('Hello ' + String(world));
-    }</b>
-  }
-&lt;/script&gt;
-</pre>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Code Slide (Smaller Font)</h2>
-    </hgroup>
-    <article class="smaller">
-      <pre class="prettyprint" data-lang="javascript">
-// Say hello world until the user starts questioning
-// the meaningfulness of their existence.
-function helloWorld(world) {
-  for (var i = 42; --i &gt;= 0;) {
-    alert('Hello ' + String(world));
-  }
-}
-</pre>
-<pre class="prettyprint" data-lang="css">
-&lt;style&gt;
-  p { color: pink }
-  b { color: blue }
-&lt;/style&gt;
-</pre>
-<pre class="prettyprint" data-lang="html">
-&lt;!DOCTYPE html>
-&lt;html>
-&lt;head>
-  &lt;title>My Awesome Page&lt;/title>
-&lt;/head>
-&lt;body>
-  &lt;p&gt;Hello world&lt;/p&gt;
-&lt;body>
-&lt;/html>
-</pre>
-    </article>
-  </slide>
-
-  <slide>
-    <aside class="note">
-      <section>
-        <ul>
-          <li>Point I wanted to make #1</li>
-          <li>Point I wanted to make #2</li>
-          <li>Point I wanted to make #3</li>
-          <li>Example <a href="#">link</a> in notes.</li>
-        </ul>
-        <p><b>Remember to say this tag line!</b></p>
-      </section>
-    </aside>
-    <hgroup>
-      <h2>Slide with Speaker Notes</h2>
-    </hgroup>
-    <article>
-      <p>Press 'p' to toggle speaker notes.</p>
-    </article>
-  </slide>
-
-  <slide>
-    <aside class="note">
-      <section>
-        <ul>
-          <li>See this amazing link: <a href="http://www.google.com">link</a>.</li>
-        </ul>
-        <p><b>Remember to say this tag line!</b></p>
-      </section>
-    </aside>
-    <hgroup>
-      <h2>Presenter Mode</h2>
-    </hgroup>
-    <article>
-      <p>Add <code><a href="?presentme=true" target="_self">?presentme=true</a></code> to the URL to enabled presenter mode.
-      This setting is sticky, meaning refreshing the page will persist presenter
-      mode.</p>
-      <p>Hit <code><a href="?presentme=false" target="_self">?presentme=false</a></code> to disable presenter mode.</p>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Slide with Image</h2>
-    </hgroup>
-    <article>
-      <img src="images/chart.png" class="reflect" alt="Description" title="Description">
-      <footer class="source">source: place source info here</footer>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Slide with Image (Centered horz/vert)</h2>
-    </hgroup>
-    <article class="flexbox vcenter">
-      <img src="images/barchart.png" alt="Description" title="Description">
-      <footer class="source">source: place source info here</footer>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Table Option A</h2>
-      <h3>Subtitle Placeholder</h3>
-    </hgroup>
-    <article>
-      <table>
-        <tr>
-          <th></th><th>Column 1</th><th>Column 2</th><th>Column 3</th><th>Column 4</th>
-        </tr>
-        <tr>
-          <td>Row 1</td><td>placeholder</td><td class="highlight">placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <td>Row 2</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <td>Row 3</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <td>Row 4</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <td>Row 5</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-      </table>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Table Option A (Smaller Text)</h2>
-      <h3>Subtitle Placeholder</h3>
-    </hgroup>
-    <article class="smaller">
-      <table>
-        <tr>
-          <th></th><th>Column 1</th><th>Column 2</th><th>Column 3</th><th>Column 4</th>
-        </tr>
-        <tr>
-          <td>Row 1</td><td>placeholder</td><td class="highlight">placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <td>Row 2</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <td>Row 3</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <td>Row 4</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <td>Row 5</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-      </table>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Table Option B</h2>
-      <h3>Subtitle Placeholder</h3>
-    </hgroup>
-    <article>
-      <table class="rows">
-        <tr>
-          <th>Header 1</th><td>placeholder</td><td class="highlight">placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <th>Header 2</th><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <th>Header 3</th><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <th>Header 4</th><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <th>Header 5</th><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-      </table>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Slide Styles</h2>
-    </hgroup>
-    <article class="smaller">
-      <div class="columns-2">
-        <ul>
-          <li class="red">class="red"</li>
-          <li class="red2">class="red2"</li>
-          <li class="red3">class="red3"</li>
-          <li class="blue">class="blue"</li>
-          <li class="blue2">class="blue2"</li>
-          <li class="blue3">class="blue3"</li>
-          <li class="green">class="green"</li>
-          <li class="green2">class="green2"</li>
-        </ul>
-        <ul>
-          <li class="green3">class="green3"</li>
-          <li class="yellow">class="yellow"</li>
-          <li class="yellow2">class="yellow2"</li>
-          <li class="yellow3">class="yellow3"</li>
-          <li class="gray">class="gray"</li>
-          <li class="gray2">class="gray2"</li>
-          <li class="gray3">class="gray3"</li>
-          <li class="gray4">class="gray4"</li>
-        </ul>
-      </div>
-      <div class="centered" style="margin-top:2em">
-        I am centered text with a <button>Button</button> and <button disabled>Disabled</button> button.
-      </div>
-    </article>
-  </slide>
-
-  <slide class="segue dark nobackground">
-    <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside>
-    <hgroup class="auto-fadein">
-      <h2>Segue Slide</h2>
-      <h3>Subtitle Placeholder</h3>
-    </hgroup>
-  </slide>
-
-  <slide class="fill nobackground" style="background-image: url(images/sky.jpg)">
-    <hgroup>
-      <h2 class="white">Full Image (with Optional Header)</h2>
-    </hgroup>
-    <footer class="source white">www.flickr.com/photos/25797459@N06/5438799763/</footer>
-  </slide>
-
-  <slide class="segue dark quote nobackground">
-    <aside class="gdbar right bottom"><img src="images/google_developers_icon_128.png"></aside>
-    <article class="flexbox vleft auto-fadein">
-      <q>
-        This is an example of quote text.
-      </q>
-      <div class="author">
-        Name<br>
-        Company
-      </div>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Slide with Iframe</h2>
-    </hgroup>
-    <article>
-      <iframe data-src="http://www.google.com/doodle4google/history.html"></iframe>
-    </article>
-  </slide>
-
-  <slide>
-    <article>
-      <iframe data-src="http://www.google.com/doodle4google/history.html"></iframe>
-    </article>
-  </slide>
-
-  <slide class="thank-you-slide segue nobackground">
-    <aside class="gdbar right"><img src="images/google_developers_icon_128.png"></aside>
-    <article class="flexbox vleft auto-fadein">
-      <h2>&lt;Thank You!&gt;</h2>
-      <p>Important contact information goes here.</p>
-    </article>
-    <p class="auto-fadein" data-config-contact>
-      <!-- populated from slide_config.json -->
-    </p>
-  </slide>
-
-  <slide class="logoslide dark nobackground">
-    <article class="flexbox vcenter">
-      <span><img src="images/angularjs_white.png"></span>
-    </article>
-  </slide>
 
   <slide class="backdrop"></slide>
 
