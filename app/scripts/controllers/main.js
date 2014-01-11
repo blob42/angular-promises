@@ -37,11 +37,11 @@ angular.module('angularPromisesApp')
   				params: {include_docs: true},
           // If timeout is reached the request is aborted
           timeout: timeout 
-  			}).finally(function(){
+        }).finally(function(){
           $timeout.cancel(timeout); // If request is successful abort the timeout
         })
 
-  		}
+      }
 
   		doRequest();
   	}
