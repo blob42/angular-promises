@@ -20,61 +20,26 @@ angular.module('angularPromisesApp')
 
   	$scope.loadDataWithFailOver = function() {
   		var requestTimeout = $scope.timeout;
-  		var retries = 10;
 
   		var doRequest = function () {
-  			var timedOut;
 
-  			/*
-  				This deferred will handle the timeout of requests
-  				and notify the promise handlers 	
-  			 */
-  			var tryRequest = $q.defer();
+        requestTimeout += 50;
 
-
-  			/*
-  				Timeout + retries of requests is actually processed here
-  				with $timeout
-  			 */
-  			var timeout = $timeout(function(){
-  				timedOut = true;
-  				if (retries === 0) {
-  					tryRequest.resolve('timeout')
-  					console.log('timeout abort request');
-  				} else {
-  					console.log('trying new request')
-  					retries--;
-  					tryRequest.resolve('timeout')
-  					doRequest();
-  				}
-  			}, requestTimeout);
-
-  			// Using exponential max timeout latency
-  			// }, Math.exp(requestTimeout/100));
-  			// requestTimeout += 50;
+        // $timeout returns a promise that will be resolved when timeout ends
+        // We use Math.exp to economize on number of requests
+        var timeout = $timeout(function(){}, Math.exp(requestTimeout/100));
 
 
-  			/*
-	  			If the promise of the request is fulfilled or
-	  			failed, then cancel the timeout/retries processing
-  			 */ 
-  			tryRequest.promise.then(undefined, function(){
-  				$timeout.cancel(timeout);  				
-  			})
-
+        timeout.then(doRequest); // If the request times out, make a new one
 
   			// The API call using $http
   			$http.get('/api/ngparis/_all_docs', {
   				params: {include_docs: true},
-  				timeout: tryRequest.promise // A promise that will abort the request if resolved
-  			}).success(function(result){
-  				if (timedOut)
-  					return; // Because promises may be executed later in the digest cycle, abort duplicate request
-  				else {
-  					console.log('success')
-  					tryRequest.reject('request success')
-  				}
-  			})
+          // If timeout is reached the request is aborted
+          timeout: timeout 
+  			}).finally(function(){
+          $timeout.cancel(timeout); // If request is successful abort the timeout
+        })
 
   		}
 
